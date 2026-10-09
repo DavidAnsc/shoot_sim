@@ -1,3 +1,0 @@
-/Users/david_an/Documents/Coding/DAVE projects active/shoot_sim/build/CMakeFiles/shoot_sim.dir
-/Users/david_an/Documents/Coding/DAVE projects active/shoot_sim/build/CMakeFiles/edit_cache.dir
-/Users/david_an/Documents/Coding/DAVE projects active/shoot_sim/build/CMakeFiles/rebuild_cache.dir
