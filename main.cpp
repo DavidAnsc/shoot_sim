@@ -1,6 +1,7 @@
 #include <array>
 #include <cmath>
 #include <cstddef>
+#include <iostream>
 #include <cstdio>
 #include <chrono>
 
@@ -14,10 +15,10 @@ constexpr float BALL_MASS {0.026f};
 constexpr float DRAG_K {AIR_DENSITY * DRAG_COEFFICIENT * BALL_AREA / (2.0f * BALL_MASS)};
 
 constexpr float TIME_INTERVAL {0.02};
-constexpr float DEPTH_LIMIT {40};
+constexpr float DEPTH_LIMIT {100};
 constexpr float DEADZONE {0.2};
 
-std::array<float, 2> basketLocation {5, 1.5};
+std::array<float, 2> basketLocation {10, 1.5};
 
 std::array<float, 2> normalize(const std::array<float, 2>& vec) {
   float length {std::sqrt(vec[0] * vec[0] + vec[1] * vec[1])};
@@ -25,6 +26,14 @@ std::array<float, 2> normalize(const std::array<float, 2>& vec) {
     return vec;
   }
   return {vec[0] / length, vec[1] / length};
+}
+
+std::array<float, 2> getVctFromSettings(const float& magnitude, const float& angle) {
+  std::array<float, 2> vct {};
+  vct[0] = magnitude * cosf(angle);
+  vct[1] = magnitude * sinf(angle);
+
+  return vct;
 }
 
 // cycle speed is 50ms
@@ -98,9 +107,18 @@ void test() {
 
 int main() {
   std::array<float, 2> lastLoc {0.0,0.0};
-  std::array<float, 2> lastV {15.0, 18.0};
   int cycle {0};
+  float mag {};
+  float angleInDeg {};
+  
+  printf("enter the magnitude: ");
+  std::cin >> mag;
+  printf("\nenter the angle in deg: ");
+  std::cin >> angleInDeg;
+  printf("\n\n");
+
   auto start = std::chrono::steady_clock::now();
+  std::array<float, 2> lastV = getVctFromSettings(mag, angleInDeg * M_PI / 180.0f);
   binarySearch(lastV);
   auto stop = std::chrono::steady_clock::now();
 
