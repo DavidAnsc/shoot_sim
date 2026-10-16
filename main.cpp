@@ -18,6 +18,14 @@ constexpr float TIME_INTERVAL {0.02};
 constexpr float DEPTH_LIMIT {100};
 constexpr float DEADZONE {0.2};
 
+float angleFunc(float horizontalDistance) {
+  return (-0.714 * horizontalDistance + 43.571) * M_PI / 180.0f;
+}
+
+// float angleFunc(float horizontalDistance) {
+//   return 0.8;
+// }
+
 std::array<float, 2> basketLocation {10, 1.5};
 
 std::array<float, 2> normalize(const std::array<float, 2>& vec) {
@@ -109,16 +117,16 @@ int main() {
   std::array<float, 2> lastLoc {0.0,0.0};
   int cycle {0};
   float mag {};
-  float angleInDeg {};
   
+  printf("enter the basketLocation X: ");
+  std::cin >> basketLocation[0];
+  printf("enter the basketLocation Y: ");
+  std::cin >> basketLocation[1];
   printf("enter the magnitude: ");
   std::cin >> mag;
-  printf("\nenter the angle in deg: ");
-  std::cin >> angleInDeg;
-  printf("\n\n");
 
   auto start = std::chrono::steady_clock::now();
-  std::array<float, 2> lastV = getVctFromSettings(mag, angleInDeg * M_PI / 180.0f);
+  std::array<float, 2> lastV = getVctFromSettings(mag, angleFunc(basketLocation[0]));
   binarySearch(lastV);
   auto stop = std::chrono::steady_clock::now();
 
